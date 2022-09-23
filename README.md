@@ -14,7 +14,7 @@ Here's the essentials you need to get up and running with the library.
 package main
 
 import (
-  "https://github.com/briamoe/pscale-serverless-go"
+	"https://github.com/briamoe/pscale-serverless-go"
 )
 
 type User struct {
