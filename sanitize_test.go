@@ -30,7 +30,7 @@ func TestSanitize(t *testing.T) {
 			want := fmt.Sprintf("SELECT * FROM test WHERE id='%s'", v)
 
 			if !strings.EqualFold(sanitized, want) {
-				t.Fatalf("sanitize %s: want %s, got %s", k, want, sanitized)
+				t.Fatalf("wanted %s, but got %s", want, sanitized)
 			}
 		})
 	}
