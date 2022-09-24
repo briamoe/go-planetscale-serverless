@@ -50,6 +50,9 @@ type Executed struct {
 	// Final statement passed to PlanetScale.
 	Statement string
 
+	// Count of rows returned.
+	Count int
+
 	// Amount of rows affected by a query.
 	RowsAffected int64
 
@@ -76,6 +79,8 @@ func (c *Connection) Execute(query string, args ...string) (*Executed, error) {
 
 	return &Executed{
 		Statement: q,
+
+		Count: len(r.Result.Rows),
 
 		RowsAffected: r.Result.RowsAffected,
 		InsertID:     r.Result.InsertID,
