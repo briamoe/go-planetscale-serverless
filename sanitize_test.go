@@ -1,6 +1,7 @@
 package planetscale
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 	"testing"
@@ -34,4 +35,13 @@ func TestSanitize(t *testing.T) {
 			}
 		})
 	}
+
+	t.Run("arg length", func(t *testing.T) {
+		e := errors.New("invalid amount of query args")
+		_, err := sanitize(query, []string{"", ""})
+
+		if err.Error() != e.Error() {
+			t.Fatalf("wanted %s, but got %s", e, err)
+		}
+	})
 }

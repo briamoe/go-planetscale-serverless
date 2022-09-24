@@ -19,23 +19,23 @@ func parseBytes[T interface{}](b []byte) (*T, error) {
 	return t, nil
 }
 
-func postHTTP[T interface{}](config *Config, action string, data interface{}) (*T, error) {
+func postHTTP[T interface{}](conn *Connection, action string, data interface{}) (*T, error) {
 	d, err := json.Marshal(data)
 	if err != nil {
 		return nil, err
 	}
 
-	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf(urlFormat, config.Host, action), bytes.NewBuffer(d))
+	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf(urlFormat, conn.Config.Host, action), bytes.NewBuffer(d))
 	if err != nil {
 		return nil, err
 	}
 
-	req.SetBasicAuth(config.Username, config.Password)
+	req.SetBasicAuth(conn.Config.Username, conn.Config.Password)
 
 	req.Header.Set("User-Agent", "pscale-serverless-go/0.1.0")
 	req.Header.Set("Content-Type", "application/json")
 
-	res, err := http.DefaultClient.Do(req)
+	res, err := conn.client.Do(req)
 	if err != nil {
 		return nil, err
 	}

@@ -69,7 +69,7 @@ func (c *Connection) Execute(query string, args ...string) (*Executed, error) {
 		return nil, err
 	}
 
-	r, err := postHTTP[executeResponse](c.Config, "Execute", &executeRequest{Query: q})
+	r, err := postHTTP[executeResponse](c, "Execute", &executeRequest{Query: q})
 	if err != nil {
 		return nil, err
 	}
@@ -181,8 +181,7 @@ func cast(data string, value reflect.Value, field *resultField) error {
 		}
 
 		value.SetUint(n)
-	case "FLOAT32":
-	case "FLOAT64":
+	case "FLOAT32", "FLOAT64":
 		n, err := strconv.ParseFloat(data, value.Type().Bits())
 		if err != nil {
 			return nil
