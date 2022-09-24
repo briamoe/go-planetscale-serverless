@@ -14,7 +14,7 @@ Here's the essentials you need to get up and running with the library.
 package main
 
 import (
-	"https://github.com/briamoe/go-planetscale-serverless"
+	"github.com/briamoe/go-planetscale-serverless"
 )
 
 type User struct {
@@ -48,7 +48,7 @@ func main() {
 ## Installation
 Requires Go version 1.18 or higher.
 ```
-go get -u https://github.com/briamoe/go-planetscale-serverless
+go get -u github.com/briamoe/go-planetscale-serverless
 ```
 
 ## Examples
