@@ -32,7 +32,7 @@ func postHTTP[T interface{}](conn *Connection, action string, data interface{}) 
 
 	req.SetBasicAuth(conn.Config.Username, conn.Config.Password)
 
-	req.Header.Set("User-Agent", "pscale-serverless-go/0.1.0")
+	req.Header.Set("User-Agent", "go-planetscale-serverless/0.1.0")
 	req.Header.Set("Content-Type", "application/json")
 
 	res, err := conn.client.Do(req)

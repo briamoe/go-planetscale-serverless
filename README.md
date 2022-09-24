@@ -54,7 +54,7 @@ go get -u https://github.com/briamoe/go-planetscale-serverless
 ## Examples
 Listed below are a few examples of how to use this library on different popular serverless providers.
 - [AWS](https://github.com/briamoe/go-planetscale-serverless/tree/main/examples/aws)
-- [Google](https://github.com/briamoe/go-planetscale-serverless/tree/main/examples/google)
+<!-- - [Google](https://github.com/briamoe/go-planetscale-serverless/tree/main/examples/google) -->
 - [Vercel](https://github.com/briamoe/go-planetscale-serverless/tree/main/examples/vercel)
 
 ## Connection
