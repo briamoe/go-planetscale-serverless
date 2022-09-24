@@ -47,7 +47,7 @@ func (c *testSelectClient) RoundTrip(req *http.Request) (*http.Response, error) 
 			Rows: []*resultRow{
 				{
 					Lengths: []string{"2", "1", "3", "4"},
-					Values:  "LTExMS4xdGVzdA==", // base64 encoded 1
+					Values:  "LTExMS4xdGVzdA==", // base64 encoded -111.1test
 				},
 			},
 		},
