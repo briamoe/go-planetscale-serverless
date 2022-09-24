@@ -61,8 +61,10 @@ type Executed struct {
 }
 
 func (c *Connection) Execute(query string, args ...string) (*Executed, error) {
-	// TODO: sanitize & add args
-	q := query
+	q, err := sanitize(query, args)
+	if err != nil {
+		return nil, err
+	}
 
 	r, err := postHTTP[executeResponse](c.Config, "Execute", &executeRequest{Query: q})
 	if err != nil {
