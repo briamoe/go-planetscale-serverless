@@ -146,7 +146,10 @@ func (e *Executed) Decode(out interface{}) error {
 
 			// checks if there's a field in the type associated with the one from the table, and casts if it dooes
 			if i, ok := m[e.fields[li].Name]; ok {
-				cast(sv[o:o+n], reflect.Indirect(rv).Field(i), e.fields[li])
+				err = cast(sv[o:o+n], reflect.Indirect(rv).Field(i), e.fields[li])
+				if err != nil {
+					return err
+				}
 			}
 
 			o += n
@@ -161,30 +164,45 @@ func (e *Executed) Decode(out interface{}) error {
 
 // TODO: make this less vulnerable to panics
 func cast(data string, value reflect.Value, field *resultField) error {
+	if !value.CanSet() {
+		return fmt.Errorf("field for %s is unsettable", field.Name)
+	}
+
 	if data == "" {
-		return nil
+		return errors.New(value.Addr().Type().Name())
 	}
 
 	switch field.Type {
 	case "INT8", "INT16", "INT24", "INT32", "INT64":
+		if value.Kind() != reflect.Int {
+			return fmt.Errorf("field for %s does not match type %s", field.Name, field.Type)
+		}
+
 		n, err := strconv.ParseInt(data, 10, 64)
 		if err != nil {
-			fmt.Println(err)
-			return nil
+			return err
 		}
 
 		value.SetInt(n)
 	case "UINT8", "UINT16", "UINT24", "UINT32", "UINT64":
+		if value.Kind() != reflect.Uint {
+			return fmt.Errorf("field for %s does not match type %s", field.Name, field.Type)
+		}
+
 		n, err := strconv.ParseUint(data, 10, 64)
 		if err != nil {
-			return nil
+			return err
 		}
 
 		value.SetUint(n)
 	case "FLOAT32", "FLOAT64":
+		if (field.Type == "FLOAT32" && value.Kind() != reflect.Float32) || (field.Type == "FLOAT64" && value.Kind() != reflect.Float64) {
+			return fmt.Errorf("field for %s does not match type %s", field.Name, field.Type)
+		}
+
 		n, err := strconv.ParseFloat(data, value.Type().Bits())
 		if err != nil {
-			return nil
+			return err
 		}
 
 		value.SetFloat(n)
