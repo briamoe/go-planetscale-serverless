@@ -63,7 +63,7 @@ type Executed struct {
 	rows   []*resultRow
 }
 
-func (c *Connection) Execute(query string, args ...string) (*Executed, error) {
+func (c *Connection) Execute(query string, args ...any) (*Executed, error) {
 	q, err := sanitize(query, args)
 	if err != nil {
 		return nil, err
