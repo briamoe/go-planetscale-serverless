@@ -162,7 +162,6 @@ func (e *Executed) Decode(out interface{}) error {
 	return nil
 }
 
-// TODO: make this less vulnerable to panics
 func cast(data string, value reflect.Value, field *resultField) error {
 	if !value.CanSet() {
 		return fmt.Errorf("field for %s is unsettable", field.Name)
