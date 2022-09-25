@@ -32,7 +32,7 @@ func main() {
 		panic(err)
 	}
 
-	e, err := c.Execute("SELECT * FROM users WHERE id=?", "1");
+	e, err := c.Execute("SELECT * FROM users WHERE id=?", 1);
 	if err != nil {
 		panic(err)
 	}
@@ -72,7 +72,7 @@ planetscale.NewConnection(&planetscale.Config{
 ## Executing
 Executing performs a query to a PlanetScale Database.
 ```go
-connection.Execute("SELECT * FROM users WHERE id=?", "1")
+connection.Execute("SELECT * FROM users WHERE id=?", 1)
 ```
 
 ### Selects
